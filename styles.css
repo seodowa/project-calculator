@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+}
+
+.calc-container {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 16px;
+    width: 20%;
+    height: 80%;
+}
