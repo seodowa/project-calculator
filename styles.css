@@ -15,12 +15,12 @@ body {
     display: flex;
     flex: none;
     flex-direction: column;
-    padding: 8px;
+    padding: 12px;
     border-style: solid;
     border-width: 2px;
     border-radius: 16px;
-    width: 15rem;
-    height: 20rem;
+    width: 23rem;
+    height: 32rem;
     background-color: #444445;
 }
 
@@ -31,10 +31,46 @@ input {
     border-radius: 4px;
     flex: auto;
     text-align: right;
+    width: 100%;
+    font-size: 40px;
 }
 
 .input-screen {
     display: flex;
     margin: 1rem 0rem;
-    height: 3rem;
+    height: 6rem;
+}
+
+.input-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: .2rem;
+    margin-bottom: .5rem;
+}
+
+.btn {
+    border: 1px solid #333333;
+    border-radius: 12px;
+    width: 5rem;
+    height: 4.5rem;
+    padding: 0px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 0;
+}
+
+.btn.operator {
+    background-color: #456dd1;
+}
+
+.btn.misc {
+    background-color: #666666;
+}
+
+.btn:hover {
+    background-color: #f8f8f8;
+    color: #666666;
+    border: 1px solid #333333;
 }
