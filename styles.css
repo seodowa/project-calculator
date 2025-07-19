@@ -15,9 +15,26 @@ body {
     display: flex;
     flex: none;
     flex-direction: column;
+    padding: 8px;
     border-style: solid;
     border-width: 2px;
     border-radius: 16px;
-    width: 20%;
-    height: 80%;
+    width: 15rem;
+    height: 20rem;
+    background-color: #444445;
+}
+
+input {
+    padding: 0px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 4px;
+    flex: auto;
+    text-align: right;
+}
+
+.input-screen {
+    display: flex;
+    margin: 1rem 0rem;
+    height: 3rem;
 }
