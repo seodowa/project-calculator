@@ -81,7 +81,7 @@ function handleResult() {
             result = multiply(num1, num2);
             break;
         case "division":
-            result = divide(num1, num2);
+            result = divide(num1, num2).toFixed(5);
             break;
         default:
             console.log("Invalid operation!");
