@@ -8,7 +8,7 @@ window.addEventListener("beforeunload", clearInputScreen);
 
 
 function clearInputScreen() {
-    inputScreen.value = "";
+    inputScreen.value = "0";
 }
 
 
@@ -20,6 +20,9 @@ function isValidInputForNumber(event) {
     
     if ((result = re.exec(target.textContent)) === null)
         return;
+
+    if (event.target.id !== "dot" && inputScreen.value === "0")
+        inputScreen.value = "";
 
     inputScreen.value += result[0];
 }
