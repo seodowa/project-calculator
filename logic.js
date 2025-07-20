@@ -83,9 +83,6 @@ function handleResult() {
 
 
 function handleOperation(event) {
-    if (isAnOperationClicked)
-        return;
-
     if (!isFirstOperation) {
         handleResult();
         num1 = result;
