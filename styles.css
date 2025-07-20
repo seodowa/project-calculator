@@ -67,15 +67,16 @@ input[disabled] {
     line-height: 0;
 }
 
-.btn.operator {
+.btn.operator, .btn.operator:disabled {
     background-color: #456dd1;
+    color: black;
 }
 
 .btn.misc {
     background-color: #666666;
 }
 
-.btn:hover {
+.btn:hover, .btn.operator:disabled:hover {
     background-color: #f8f8f8;
     color: #666666;
     border: 1px solid #333333;

@@ -28,6 +28,7 @@ function clearInputScreen() {
     inputScreen.value = "0";
     isFirstOperation = true;
     isAnOperationClicked = false;
+    isOperationRecentlyClicked = false;
     num1 = num2 = result = 0;
 }
 
@@ -35,10 +36,17 @@ function clearInputScreen() {
 function isValidBtnInputForNumber(event) {
     let target = event.target;
     
-    const re = RegExp("[\\d.]+");
-    let result;
+    // This is to prevent a weird bug where the regex
+    // would capture all button texts if the container
+    // was accidentally clicked, and in turn would return
+    // 1 and display it on screen
+    if (target.className === "input-buttons-container")
+        return;
     
-    if ((result = re.exec(target.textContent)) === null)
+    const re = RegExp("[\\d.]+");
+    let result = re.exec(target.textContent);
+    
+    if (result === null)
         return;
 
     if (event.target.id !== "dot" && isInputScreenInInitialState()) 
@@ -49,6 +57,9 @@ function isValidBtnInputForNumber(event) {
     }
         
     inputScreen.value += result[0];
+
+    if (addBtn.disabled)
+        toggleOperatorButtons();
 }
 
 
@@ -83,6 +94,7 @@ function handleResult() {
 
 
 function handleOperation(event) {
+    toggleOperatorButtons();
     if (!isFirstOperation) {
         handleResult();
         num1 = result;
@@ -138,4 +150,13 @@ function isInputScreenInInitialState() {
 function enableScreenVerticalScroll(event) {
     event.preventDefault();
     event.target.scrollLeft += event.deltaY;
+}
+
+
+function toggleOperatorButtons() {
+    addBtn.disabled = addBtn.disabled ? false : true;
+    subtractBtn.disabled = subtractBtn.disabled ? false : true;
+    multiplyBtn.disabled = multiplyBtn.disabled ? false : true;
+    divideBtn.disabled = divideBtn.disabled ? false : true;
+    equalsBtn.disabled = equalsBtn.disabled ? false : true;
 }
