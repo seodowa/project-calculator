@@ -13,7 +13,6 @@ let operation;
 let isFirstOperation = true;
 let isAnOperationClicked = false;
 let isOperationRecentlyClicked = false;
-let isEqualsBtnClicked = false;
 
 const DECIMAL_PLACES = 5;
 
@@ -25,8 +24,8 @@ subtractBtn.addEventListener("click", handleOperation);
 multiplyBtn.addEventListener("click", handleOperation);
 divideBtn.addEventListener("click", handleOperation);
 equalsBtn.addEventListener("click", handleResult);
+inputScreen.addEventListener("wheel", enableScreenVerticalScroll);
 posnegBtn.addEventListener("click", toggleNumberSign);
-inputScreen.addEventListener("wheel", enableScreenVerticalScroll)
 
 
 function clearInputScreen() {
@@ -56,14 +55,9 @@ function isValidBtnInputForNumber(event) {
 
     if (event.target.id !== "dot" && isInputScreenInInitialState()) 
         inputScreen.value = "";
-    else if (isOperationRecentlyClicked || isEqualsBtnClicked) {
-        if (event.target.id === "dot")
-            inputScreen.value = "0";
-        else
-            inputScreen.value = "";
-
+    else if (isOperationRecentlyClicked) {
+        inputScreen.value = "";
         isOperationRecentlyClicked = false;
-        isEqualsBtnClicked = false;
     }
         
     inputScreen.value += result[0];
@@ -74,14 +68,9 @@ function isValidBtnInputForNumber(event) {
 
 
 
-function handleResult(event) {
+function handleResult() {
     if (!isAnOperationClicked)
         return;
-
-    if (event.target.id === "equals") {
-        isEqualsBtnClicked = true;
-        isFirstOperation = true;
-    }
     
     num2 = +inputScreen.value;
 
@@ -180,6 +169,26 @@ function divide(a, b) {
 }
 
 
+function isInputScreenInInitialState() {
+    return inputScreen.value === "0";
+}
+
+
+function enableScreenVerticalScroll(event) {
+    event.preventDefault();
+    event.target.scrollLeft += event.deltaY;
+}
+
+
+function toggleOperatorButtons() {
+    addBtn.disabled = addBtn.disabled ? false : true;
+    subtractBtn.disabled = subtractBtn.disabled ? false : true;
+    multiplyBtn.disabled = multiplyBtn.disabled ? false : true;
+    divideBtn.disabled = divideBtn.disabled ? false : true;
+    equalsBtn.disabled = equalsBtn.disabled ? false : true;
+}
+
+
 function checkNumberOfDecimalPlaces(num) {
     let numStrSeparatedByPoint = num.toString().split(".");
 
@@ -202,25 +211,3 @@ function toggleNumberSign() {
         inputScreen.value = num.slice(1);
     }
 }
-
-
-function isInputScreenInInitialState() {
-    return inputScreen.value === "0";
-}
-
-
-function enableScreenVerticalScroll(event) {
-    event.preventDefault();
-    event.target.scrollLeft += event.deltaY;
-}
-
-
-function toggleOperatorButtons() {
-    addBtn.disabled = addBtn.disabled ? false : true;
-    subtractBtn.disabled = subtractBtn.disabled ? false : true;
-    multiplyBtn.disabled = multiplyBtn.disabled ? false : true;
-    divideBtn.disabled = divideBtn.disabled ? false : true;
-    equalsBtn.disabled = equalsBtn.disabled ? false : true;
-}
-
-
