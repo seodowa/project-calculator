@@ -15,6 +15,7 @@ let operation;
 let isFirstOperation = true;
 let isAnOperationClicked = false;
 let isOperationRecentlyClicked = false;
+let isEqualsBtnClicked = false;
 
 const DECIMAL_PLACES = 5;
 
@@ -59,9 +60,10 @@ function isValidBtnInputForNumber(event) {
 
     if (event.target.id !== "dot" && isInputScreenInInitialState()) 
         inputScreen.value = "";
-    else if (isOperationRecentlyClicked) {
+    else if (isOperationRecentlyClicked || isEqualsBtnClicked) {
         inputScreen.value = "";
         isOperationRecentlyClicked = false;
+        isEqualsBtnClicked = false;
     }
         
     inputScreen.value += result[0];
@@ -98,6 +100,7 @@ function handleResult() {
     inputScreen.value = result;
     num1 = num2 = 0;
     isAnOperationClicked = false;
+    isEqualsBtnClicked = true;
 }
 
 
@@ -162,7 +165,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
     if (b === 0)
-        return "Nan";
+        return "NaN";
 
     let result = a/b;
 
