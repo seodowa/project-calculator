@@ -8,6 +8,7 @@ let divideBtn = document.querySelector("#divide");
 let equalsBtn = document.querySelector("#equals");
 let posnegBtn = document.querySelector("#posneg");
 let sqrtBtn = document.querySelector("#sqrt");
+let backspaceBtn = document.querySelector("#backspace");
 
 let num1 = num2 = result = null;
 let operation;
@@ -28,6 +29,7 @@ equalsBtn.addEventListener("click", handleResult);
 inputScreen.addEventListener("wheel", enableScreenVerticalScroll);
 posnegBtn.addEventListener("click", toggleNumberSign);
 sqrtBtn.addEventListener("click", handleSqrt);
+backspaceBtn.addEventListener("click", handleBackspace);
 
 
 function clearInputScreen() {
@@ -226,4 +228,14 @@ function handleSqrt() {
         inputScreen.value = result;
 
     isOperationRecentlyClicked = true;
+}
+
+
+function handleBackspace() {
+    let inputText = inputScreen.value;
+
+    if (inputText.length < 2)
+        inputScreen.value = 0;
+    else
+        inputScreen.value = inputText.slice(0, inputText.length-1);
 }
