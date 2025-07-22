@@ -6,6 +6,7 @@ let subtractBtn = document.querySelector("#subtract");
 let multiplyBtn = document.querySelector("#multiply");
 let divideBtn = document.querySelector("#divide");
 let equalsBtn = document.querySelector("#equals");
+let posnegBtn = document.querySelector("#posneg");
 
 let num1 = num2 = result = null;
 let operation;
@@ -22,6 +23,7 @@ subtractBtn.addEventListener("click", handleOperation);
 multiplyBtn.addEventListener("click", handleOperation);
 divideBtn.addEventListener("click", handleOperation);
 equalsBtn.addEventListener("click", handleResult);
+posnegBtn.addEventListener("click", toggleNumberSign);
 inputScreen.addEventListener("wheel", enableScreenVerticalScroll)
 
 
@@ -53,7 +55,11 @@ function isValidBtnInputForNumber(event) {
     if (event.target.id !== "dot" && isInputScreenInInitialState()) 
         inputScreen.value = "";
     else if (isOperationRecentlyClicked || isEqualsBtnClicked) {
-        inputScreen.value = "";
+        if (event.target.id === "dot")
+            inputScreen.value = "0";
+        else
+            inputScreen.value = "";
+
         isOperationRecentlyClicked = false;
         isEqualsBtnClicked = false;
     }
@@ -161,6 +167,14 @@ function checkNumberOfDecimalPlaces(num) {
     let numStrSeparatedByPoint = num.toString().split(".");
 
     return numStrSeparatedByPoint[1].length;
+}
+
+
+function toggleNumberSign() {
+    let num = inputScreen.textContent;
+
+    if (num == 0)
+        return
 }
 
 
