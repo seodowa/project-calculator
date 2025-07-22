@@ -81,7 +81,7 @@ function handleResult() {
             result = multiply(num1, num2);
             break;
         case "division":
-            result = divide(num1, num2).toFixed(5);
+            result = divide(num1, num2);
             break;
         default:
             console.log("Invalid operation!");
@@ -138,7 +138,22 @@ function multiply(a, b) {
 
 
 function divide(a, b) {
-    return a/b;
+    if (b === 0)
+        return "Error: Division by Zero";
+
+    let result = a/b;
+
+    if (checkNumberOfDecimalPlaces(result) > 5)
+        return result.toFixed(5);
+
+    return result;
+}
+
+
+function checkNumberOfDecimalPlaces(num) {
+    let numStrSeparatedByPoint = num.toString().split(".");
+
+    return numStrSeparatedByPoint[1].length;
 }
 
 
@@ -160,3 +175,5 @@ function toggleOperatorButtons() {
     divideBtn.disabled = divideBtn.disabled ? false : true;
     equalsBtn.disabled = equalsBtn.disabled ? false : true;
 }
+
+
