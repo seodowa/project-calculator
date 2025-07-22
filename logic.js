@@ -136,17 +136,32 @@ function handleOperation(event) {
 
 
 function add(a, b) {
-    return a+b;
+    let result = a+b;
+
+    if (checkNumberOfDecimalPlaces(result) > 5)
+        return result.toFixed(5);
+
+    return result;
 }
 
 
 function subtract(a, b) {
-    return a-b;
+    let result = a-b;
+
+    if (checkNumberOfDecimalPlaces(result) > 5)
+        return result.toFixed(5);
+
+    return result;
 }
 
 
 function multiply(a, b) {
-    return a*b;
+    let result = a*b;
+
+    if (checkNumberOfDecimalPlaces(result) > 5)
+        return result.toFixed(5);
+
+    return result;
 }
 
 
