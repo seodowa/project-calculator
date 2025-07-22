@@ -7,6 +7,7 @@ let multiplyBtn = document.querySelector("#multiply");
 let divideBtn = document.querySelector("#divide");
 let equalsBtn = document.querySelector("#equals");
 let posnegBtn = document.querySelector("#posneg");
+let sqrtBtn = document.querySelector("#sqrt");
 
 let num1 = num2 = result = null;
 let operation;
@@ -26,6 +27,7 @@ divideBtn.addEventListener("click", handleOperation);
 equalsBtn.addEventListener("click", handleResult);
 inputScreen.addEventListener("wheel", enableScreenVerticalScroll);
 posnegBtn.addEventListener("click", toggleNumberSign);
+sqrtBtn.addEventListener("click", handleSqrt);
 
 
 function clearInputScreen() {
@@ -158,7 +160,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
     if (b === 0)
-        return "Error: Division by Zero";
+        return "Nan";
 
     let result = a/b;
 
@@ -210,4 +212,18 @@ function toggleNumberSign() {
     } else {
         inputScreen.value = num.slice(1);
     }
+}
+
+
+function handleSqrt() {
+    let inputValue = +inputScreen.value;
+
+    let result = Math.sqrt(inputValue);
+
+    if (checkNumberOfDecimalPlaces(result) > DECIMAL_PLACES)
+        inputScreen.value = result.toFixed(DECIMAL_PLACES);
+    else
+        inputScreen.value = result;
+
+    isOperationRecentlyClicked = true;
 }
