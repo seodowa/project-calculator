@@ -15,6 +15,8 @@ let isAnOperationClicked = false;
 let isOperationRecentlyClicked = false;
 let isEqualsBtnClicked = false;
 
+const DECIMAL_PLACES = 5;
+
 buttonsContainer.addEventListener("click", isValidBtnInputForNumber);
 clearBtn.addEventListener("click", clearInputScreen);
 window.addEventListener("beforeunload", clearInputScreen);
@@ -138,8 +140,8 @@ function handleOperation(event) {
 function add(a, b) {
     let result = a+b;
 
-    if (checkNumberOfDecimalPlaces(result) > 5)
-        return result.toFixed(5);
+    if (checkNumberOfDecimalPlaces(result) > DECIMAL_PLACES)
+        return result.toFixed(DECIMAL_PLACES);
 
     return result;
 }
@@ -148,8 +150,8 @@ function add(a, b) {
 function subtract(a, b) {
     let result = a-b;
 
-    if (checkNumberOfDecimalPlaces(result) > 5)
-        return result.toFixed(5);
+    if (checkNumberOfDecimalPlaces(result) > DECIMAL_PLACES)
+        return result.toFixed(DECIMAL_PLACES);
 
     return result;
 }
@@ -158,8 +160,8 @@ function subtract(a, b) {
 function multiply(a, b) {
     let result = a*b;
 
-    if (checkNumberOfDecimalPlaces(result) > 5)
-        return result.toFixed(5);
+    if (checkNumberOfDecimalPlaces(result) > DECIMAL_PLACES)
+        return result.toFixed(DECIMAL_PLACES);
 
     return result;
 }
@@ -171,8 +173,8 @@ function divide(a, b) {
 
     let result = a/b;
 
-    if (checkNumberOfDecimalPlaces(result) > 5)
-        return result.toFixed(5);
+    if (checkNumberOfDecimalPlaces(result) > DECIMAL_PLACES)
+        return result.toFixed(DECIMAL_PLACES);
 
     return result;
 }
@@ -181,15 +183,24 @@ function divide(a, b) {
 function checkNumberOfDecimalPlaces(num) {
     let numStrSeparatedByPoint = num.toString().split(".");
 
-    return numStrSeparatedByPoint[1].length;
+    if (numStrSeparatedByPoint.length > 1)
+        return numStrSeparatedByPoint[1].length;
+    
+    return 0;
 }
 
 
 function toggleNumberSign() {
-    let num = inputScreen.textContent;
+    let num = inputScreen.value;
 
+    // To also handle a case where it displays '0.' in the screen
     if (num == 0)
-        return
+        return;
+    else if (num > 0) {
+        inputScreen.value = `-${num}`;
+    } else {
+        inputScreen.value = num.slice(1);
+    }
 }
 
 
