@@ -12,6 +12,7 @@ let operation;
 let isFirstOperation = true;
 let isAnOperationClicked = false;
 let isOperationRecentlyClicked = false;
+let isEqualsBtnClicked = false;
 
 buttonsContainer.addEventListener("click", isValidBtnInputForNumber);
 clearBtn.addEventListener("click", clearInputScreen);
@@ -51,9 +52,10 @@ function isValidBtnInputForNumber(event) {
 
     if (event.target.id !== "dot" && isInputScreenInInitialState()) 
         inputScreen.value = "";
-    else if (isOperationRecentlyClicked) {
+    else if (isOperationRecentlyClicked || isEqualsBtnClicked) {
         inputScreen.value = "";
         isOperationRecentlyClicked = false;
+        isEqualsBtnClicked = false;
     }
         
     inputScreen.value += result[0];
@@ -64,9 +66,14 @@ function isValidBtnInputForNumber(event) {
 
 
 
-function handleResult() {
+function handleResult(event) {
     if (!isAnOperationClicked)
         return;
+
+    if (event.target.id === "equals") {
+        isEqualsBtnClicked = true;
+        isFirstOperation = true;
+    }
     
     num2 = +inputScreen.value;
 
