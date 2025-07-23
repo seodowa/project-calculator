@@ -16,6 +16,7 @@ let isFirstOperation = true;
 let isAnOperationClicked = false;
 let isOperationRecentlyClicked = false;
 let isEqualsBtnClicked = false;
+let areBtnsDisabled = false;
 
 const DECIMAL_PLACES = 5;
 
@@ -32,13 +33,19 @@ posnegBtn.addEventListener("click", toggleNumberSign);
 sqrtBtn.addEventListener("click", handleSqrt);
 backspaceBtn.addEventListener("click", handleBackspace);
 
+toggleOperatorButtons();
+
 
 function clearInputScreen() {
     inputScreen.value = "0";
     isFirstOperation = true;
     isAnOperationClicked = false;
     isOperationRecentlyClicked = false;
+    isEqualsBtnClicked = false;
     num1 = num2 = result = 0;
+
+    if (!areBtnsDisabled)
+        toggleOperatorButtons();
 }
 
 
@@ -188,6 +195,7 @@ function enableScreenVerticalScroll(event) {
 
 
 function toggleOperatorButtons() {
+    areBtnsDisabled = areBtnsDisabled ? false: true;
     addBtn.disabled = addBtn.disabled ? false : true;
     subtractBtn.disabled = subtractBtn.disabled ? false : true;
     multiplyBtn.disabled = multiplyBtn.disabled ? false : true;
