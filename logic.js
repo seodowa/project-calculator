@@ -187,7 +187,7 @@ function multiply(a, b) {
 
 
 function divide(a, b) {
-    if (b === 0)
+    if (b === '0')
         return "NaN";
 
     let result = a/b;
