@@ -17,6 +17,7 @@ let isAnOperationClicked = false;
 let isOperationRecentlyClicked = false;
 let isEqualsBtnClicked = false;
 let areBtnsDisabled = false;
+let isDotAlreadyEntered = false;
 
 const DECIMAL_PLACES = 5;
 
@@ -42,6 +43,7 @@ function clearInputScreen() {
     isAnOperationClicked = false;
     isOperationRecentlyClicked = false;
     isEqualsBtnClicked = false;
+    isDotAlreadyEntered = false;
     num1 = num2 = result = 0;
 
     if (!areBtnsDisabled)
@@ -65,15 +67,25 @@ function isValidBtnInputForNumber(event) {
     if (result === null)
         return;
 
-    if (event.target.id !== "dot" && isInputScreenInInitialState()) 
-        inputScreen.value = "";
-    else if (isOperationRecentlyClicked || isEqualsBtnClicked) {
-        inputScreen.value = "";
+    
+    if (isOperationRecentlyClicked || isEqualsBtnClicked) {
+        if (event.target.id === "dot") 
+            inputScreen.value = "0";
+        else
+            inputScreen.value = "";
+
         isOperationRecentlyClicked = false;
         isEqualsBtnClicked = false;
     }
-        
-    inputScreen.value += result[0];
+
+    if (event.target.id !== "dot") {
+        if (isInputScreenInInitialState())
+            inputScreen.value = "";
+        inputScreen.value += result[0];
+    } else if (event.target.id === "dot" && !isDotAlreadyEntered) {
+        isDotAlreadyEntered = true;  
+        inputScreen.value += result[0];
+    }
 
     if (addBtn.disabled)
         toggleOperatorButtons();
@@ -85,7 +97,7 @@ function handleResult() {
     if (!isAnOperationClicked)
         return;
     
-    num2 = +inputScreen.value;
+    num2 = inputScreen.value;
 
     switch (operation) {
         case "addition":
@@ -108,6 +120,7 @@ function handleResult() {
     num1 = num2 = 0;
     isAnOperationClicked = false;
     isEqualsBtnClicked = true;
+    isDotAlreadyEntered = false;
 }
 
 
@@ -117,11 +130,12 @@ function handleOperation(event) {
         handleResult();
         num1 = result;
     } else {
-        num1 = +inputScreen.value;
+        num1 = inputScreen.value;
     }
     isOperationRecentlyClicked = true; 
     isAnOperationClicked = true;
     isFirstOperation = false;
+    isDotAlreadyEntered = false;
 
     switch (event.target.id) {
         case "add":
@@ -141,7 +155,9 @@ function handleOperation(event) {
 
 
 function add(a, b) {
-    let result = a+b;
+    // Has to be explicitly converted to not cause concatenation instead of 
+    // arithmetic addition
+    let result = (+a)+(+b);
 
     if (checkNumberOfDecimalPlaces(result) > DECIMAL_PLACES)
         return result.toFixed(DECIMAL_PLACES);
